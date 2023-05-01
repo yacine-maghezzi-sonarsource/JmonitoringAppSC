@@ -266,6 +266,8 @@
                                     <cargo.tomcat.connector.keystorePass>changeit</cargo.tomcat.connector.keystorePass>
                                     <cargo.tomcat.connector.keyAlias>tomcat</cargo.tomcat.connector.keyAlias>
                                     <cargo.tomcat.httpSecure>true</cargo.tomcat.httpSecure>
+                                    <sonar.organization>yacine-maghezzi-sonarsource</sonar.organization>
+                                    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                                 </properties>
                             </configuration>
                         </configuration>
