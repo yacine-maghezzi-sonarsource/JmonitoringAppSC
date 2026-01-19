@@ -1,0 +1,83 @@
+{
+  "perspectives": [
+    {
+      "label": "Clean_Architecture",
+      "description": "Enforces a standard 3-tier layered architecture (Presentation -> Business -> Data)",
+      "groups": [
+        {
+          "label": "Presentation",
+          "description": "Handles HTTP requests and UI interaction",
+          "patterns": [
+            "**/controller/**",
+            "**/web/**",
+            "**/api/**",
+            "**/rest/**"
+          ]
+        },
+        {
+          "label": "Business",
+          "description": "Contains business logic and service orchestration",
+          "patterns": [
+            "**/service/**",
+            "**/logic/**",
+            "**/manager/**"
+          ]
+        },
+        {
+          "label": "Data",
+          "description": "Handles database interactions and persistence",
+          "patterns": [
+            "**/repository/**",
+            "**/dao/**",
+            "**/database/**",
+            "**/entity/**"
+          ]
+        },
+        {
+          "label": "Common",
+          "description": "Shared utilities and DTOs accessible by all layers",
+          "patterns": [
+            "**/dto/**",
+            "**/util/**",
+            "**/common/**",
+            "**/model/**"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "message": "Violation: The Presentation layer (Controllers) must not access the Data layer (Repositories) directly. Please use the Business/Service layer.",
+          "from": ["Presentation"],
+          "to": ["Data"],
+          "relation": "deny"
+        },
+        {
+          "message": "Violation: The Data layer should strictly focus on persistence and not depend on Business logic.",
+          "from": ["Data"],
+          "to": ["Business"],
+          "relation": "deny"
+        },
+        {
+          "message": "Violation: Business logic must not depend on the Presentation layer (Controllers).",
+          "from": ["Business"],
+          "to": ["Presentation"],
+          "relation": "deny"
+        },
+        {
+          "message": "Violation: The Data layer must not depend on the Presentation layer.",
+          "from": ["Data"],
+          "to": ["Presentation"],
+          "relation": "deny"
+        }
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "message": "Critical: Main application code must never import or depend on Test code.",
+      "from": ["src/main/**"],
+      "to": ["src/test/**"],
+      "relation": "deny"
+    }
+  ]
+}
