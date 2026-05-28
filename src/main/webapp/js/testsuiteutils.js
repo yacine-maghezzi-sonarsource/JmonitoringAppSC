@@ -2,13 +2,13 @@
 
 $(document).ready(function() {
     // Add listeners for Jersey Ajax w/XML forms (and possibly others)
-    if (!!document.getElementById("login-btn")) {
+    if (document.getElementById("login-btn")) {
         document.getElementById("login-btn").addEventListener('click', dispatchToSubmit);
     }
-    if (!!document.getElementById("login-btn-atk")) {
+    if (document.getElementById("login-btn-atk")) {
         document.getElementById("login-btn-atk").addEventListener('click', dispatchToSubmit);
     }
-    if (!!document.getElementById("cGenerator")) {
+    if (document.getElementById("cGenerator")) {
         document.getElementById("cGenerator").addEventListener('click', setCookie);
     }
 });
@@ -55,7 +55,7 @@ function setCookie(event) {
 }
 
 function escapeRegExp(str) {
-    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, String.raw`\$1`);
 }
 
 function replaceAll(str, find, replace) {
@@ -245,7 +245,7 @@ function getJsonMsgValues(jsonResponse) {
         const prefix = '{"msg":"';
         var msgString = JSON.stringify(msg); // e.g., {"msg":"Here is the standard output of the command:"}
         // FIXME: This is a hack. There has to be a better/more native way in JavaScript
-        msgString = msgString.substring(prefix.length, msgString.length - 2).replaceAll("\\n", "\n");
+        msgString = msgString.substring(prefix.length, msgString.length - 2).replaceAll(String.raw`\n`, "\n");
         result += msgString + "\n";
     });
     
