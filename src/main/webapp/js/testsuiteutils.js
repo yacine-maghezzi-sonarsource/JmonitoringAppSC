@@ -55,7 +55,7 @@ function setCookie(event) {
 }
 
 function escapeRegExp(str) {
-    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return str.replace(/([.*+?^=!:${}()|[/\]\\])/g, "\\$1");
 }
 
 function replaceAll(str, find, replace) {
@@ -169,8 +169,8 @@ function stripHTML(xmlResponse) {
 // XML Ajax Method
 function submitXMLwAjax(testcase) {
     const formVar = "#Form" + testcase;
-    var URL = $(formVar).attr("action");
-    var dataF = "<person>";
+    const URL = $(formVar).attr("action");
+    let dataF = "<person>";
     $(formVar + " input[type=text]").each(function() {
             dataF += "<"+this.name+"><![CDATA[";
             dataF += this.value;
@@ -193,7 +193,7 @@ function submitXMLwAjax(testcase) {
 
 function getXMLMsgValues(xmlResponse) {
     // Crude: Rips out XML content we don't want to display in the browser'
-    var result = xmlResponse.replaceAll('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>', "");
+    let result = xmlResponse.replaceAll('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>', "");
     result = result.replaceAll("<xMLMessages>","").replaceAll("</xMLMessages>","").replaceAll("<message><msg>","");
     result = result.replaceAll("</msg></message>","\n");
 
@@ -204,7 +204,7 @@ function getXMLMsgValues(xmlResponse) {
  (function ($) {
     $.fn.serializeFormJSON = function () {
 
-        var o = {};
+        const o = {};
         var a = this.serializeArray();
         $.each(a, function () {
             if (o[this.name]) {
