@@ -205,7 +205,7 @@ function getXMLMsgValues(xmlResponse) {
     $.fn.serializeFormJSON = function () {
 
         var o = {};
-        var a = this.serializeArray();
+        const a = this.serializeArray();
         $.each(a, function () {
             if (o[this.name]) {
                 if (!o[this.name].push) {
@@ -223,8 +223,8 @@ function getXMLMsgValues(xmlResponse) {
 function submitJSONwAjax(testcase) {
 
     const formVar = "#Form" + testcase;    
-    var dataF = $(formVar).serializeFormJSON();
-    var URL = $(formVar).attr("action");
+    const dataF = $(formVar).serializeFormJSON();
+    const URL = $(formVar).attr("action");
 
     $.ajax({
       type: "POST",
@@ -240,10 +240,10 @@ function submitJSONwAjax(testcase) {
 };
 
 function getJsonMsgValues(jsonResponse) {
-    var result = "";
+    let result = "";
     JSON.parse(jsonResponse).forEach(function (msg) {
         const prefix = '{"msg":"';
-        var msgString = JSON.stringify(msg); // e.g., {"msg":"Here is the standard output of the command:"}
+        let msgString = JSON.stringify(msg); // e.g., {"msg":"Here is the standard output of the command:"}
         // FIXME: This is a hack. There has to be a better/more native way in JavaScript
         msgString = msgString.substring(prefix.length, msgString.length - 2).replaceAll("\\n", "\n");
         result += msgString + "\n";
