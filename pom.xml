@@ -179,6 +179,100 @@
             <artifactId>xml-apis</artifactId>
             <version>1.4.01</version>
         </dependency>
+
+        <!-- ==================================================================
+             Monitoring subsystem dependencies.
+
+             WARNING: every version pinned below is deliberately outdated and
+             carries publicly disclosed CVEs. They exist so this project has
+             realistic Software Composition Analysis (SCA) findings to report.
+             Do NOT deploy this application. Do NOT copy these coordinates into
+             a real project.
+             ================================================================== -->
+
+        <!-- Log4Shell. CVE-2021-44228 (CVSS 10.0), CVE-2021-45046,
+             CVE-2021-45105, CVE-2021-44832. Reached by AlertLoggingService. -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.1</version>
+        </dependency>
+
+        <!-- Text4Shell. CVE-2022-42889 (CVSS 9.8) via StringSubstitutor
+             interpolation. Reached by MetricTemplateService. -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.9</version>
+        </dependency>
+
+        <!-- Polymorphic deserialization gadget chains. CVE-2020-36518,
+             CVE-2019-20330, CVE-2019-16942, CVE-2019-16943, CVE-2019-14540.
+             Reached by SensorPayloadService. -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.10.1</version>
+        </dependency>
+
+        <!-- Unsafe YAML constructor RCE. CVE-2022-1471 (CVSS 9.8),
+             CVE-2022-38752, CVE-2022-25857. Reached by MonitorConfigService. -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.30</version>
+        </dependency>
+
+        <!-- XML deserialization RCE. CVE-2021-39144 (CVSS 8.5),
+             CVE-2021-21344 and ~20 further RCE CVEs in the 1.4.x line.
+             Reached by DashboardStateService. -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+
+        <!-- InvokerTransformer deserialization RCE. CVE-2015-6420,
+             CVE-2015-7501. Note this is the exact artifact excluded from
+             apacheds-core, shared-ldap and hibernate-core above — declaring it
+             directly reintroduces the risk. Reached by ProbeRegistryService. -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+        <!-- Insecure temp directory creation. CVE-2020-8908, CVE-2023-2976,
+             CVE-2018-10237. Reached by HostCacheService. -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>24.1.1-jre</version>
+        </dependency>
+
+        <!-- JDBC URL abuse leading to RCE. CVE-2021-42392 (CVSS 9.8),
+             CVE-2022-23221, CVE-2018-10054. Reached by MetricsStoreService. -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.199</version>
+        </dependency>
+
+        <!-- Archive parsing DoS. CVE-2021-35515, CVE-2021-35516,
+             CVE-2021-35517, CVE-2021-36090. Reached by ArchiveImportService. -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.20</version>
+        </dependency>
+
+        <!-- Stack exhaustion on deeply nested JSON. CVE-2023-1370,
+             CVE-2021-31684. Reached by QueryFilterService. -->
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+            <version>2.4.7</version>
+        </dependency>
     </dependencies>
 
     <build>
